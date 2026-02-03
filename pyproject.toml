@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fun-hypothesis"
+version = "0.1.0"
+description = "Test whether different prompt framings affect LLM output quality"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Andrew H. Bond", email = "andrew.bond@sjsu.edu"}
+]
+keywords = ["llm", "prompt-engineering", "hypothesis-testing", "anthropic", "framing"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "anthropic>=0.18.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black",
+    "ruff",
+]
+
+[project.scripts]
+fun-hypothesis = "fun_hypothesis:main"
+
+[project.urls]
+"Homepage" = "https://github.com/ahb-sjsu/fun-hypothesis"
+"Bug Tracker" = "https://github.com/ahb-sjsu/fun-hypothesis/issues"
+
+[tool.setuptools]
+py-modules = ["fun_hypothesis"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
