@@ -47,6 +47,31 @@ fun-hypothesis --prompt "Explain quantum computing" --framing eli5
 
 All sessions are independent (no context leakage). Judging is double-blind.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant CLI as fun-hypothesis
+    participant A as Session A<br/>(raw prompt -> LLM)
+    participant B as Session B<br/>(prompt + framing -> LLM)
+    participant C as Session C<br/>(framed prompt -> LLM)
+    participant J as Judge panel<br/>(blind scoring)
+
+    U->>CLI: prompt + framing
+    CLI->>A: raw prompt
+    A-->>CLI: Response A
+    CLI->>B: transform via framing
+    B-->>CLI: framed prompt
+    CLI->>C: framed prompt
+    C-->>CLI: Response C
+    CLI->>J: evaluate Response A (blind)
+    J-->>CLI: score A
+    CLI->>J: evaluate Response C (blind)
+    J-->>CLI: score C
+    CLI->>CLI: iterate, aggregate,<br/>statistical comparison
+    CLI-->>U: report
+```
+
 ## Requirements
 
 - Python 3.10+
